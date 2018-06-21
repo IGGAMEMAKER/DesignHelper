@@ -1,0 +1,61 @@
+.level {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-around;
+}
+
+.levelItem {
+  text-align: center;
+  color: #d0d0e2;
+  padding: 8px;
+  height: 55px; /* Or whatever */
+  width: 100%;  /* Or whatever */
+  margin: auto;  /* Magic! */
+  box-sizing: border-box;
+}
+
+.lightBlueHover {
+  :hover {
+    background-color: #6e6ea6; // #ababcb;
+  }
+}
+
+.levelItemWrapper {
+  width: 100%;  /* Or whatever */
+  margin: 10px;  /* Magic! */
+  border: 2px solid black;
+  cursor: pointer;
+
+  @extend .lightBlueHover;
+}
+
+.levelItemTitle {
+  font-size: medium;
+}
+
+.levelItemDescription {
+  font-size: small;
+}
+
+.circleButton {
+  border-radius: 50%;
+  padding: 10px;
+  border-style: solid;
+  border-color: black;
+  color: black;
+  width: 25px;
+  cursor: pointer;
+
+  @extend .lightBlueHover;
+}
+
+.addMoreItemsButton {
+  @extend .circleButton;
+}
+
+.mainTitle {
+  text-align: center;
+  color: white;
+}
+
