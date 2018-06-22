@@ -1,8 +1,9 @@
 .level {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-around;
+  //align-items: flex-start;
+  align-items: stretch;
+  justify-content: center;
 }
 
 .levelItem {
@@ -13,6 +14,7 @@
   width: 100%;  /* Or whatever */
   margin: auto;  /* Magic! */
   box-sizing: border-box;
+  min-height: 55px;
 }
 
 .lightBlueHover {
@@ -22,7 +24,7 @@
 }
 
 .levelItemWrapper {
-  width: 100%;  /* Or whatever */
+  //width: 100%;  /* Or whatever */
   margin: 10px;  /* Magic! */
   border: 2px solid black;
   cursor: pointer;
@@ -46,6 +48,8 @@
   color: black;
   width: 25px;
   cursor: pointer;
+  text-align: center;
+  margin: auto;
 
   @extend .lightBlueHover;
 }

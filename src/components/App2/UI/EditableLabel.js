@@ -12,6 +12,7 @@ class EditableLabel extends Component {
     if(event.key === 'Enter') {
       // took from
       // https://stackoverflow.com/questions/27827234/keypress-event-handling-in-reactjs
+
       this.setState({
         editing: false
       });
@@ -49,20 +50,16 @@ class EditableLabel extends Component {
     let input;
 
     if (this.state.editing) {
-      input = (
-        <textarea
-          className={s.textarea}
-          autoFocus
-          value={text}
-          onChange={this.handleChange}
-          onKeyPress={this.handleKeyPress}
-          onMouseOver={this.handleKeyPress}
-        />
-      )
+      input = <textarea
+        className={s.textarea}
+        autoFocus
+        value={text}
+        onChange={this.handleChange}
+        onKeyPress={this.handleKeyPress}
+        onMouseOver={this.handleKeyPress}
+      />
     } else {
-      input = (
-        <div onClick={this.initEditing}>{text}</div>
-      );
+      input = <div onClick={this.initEditing}>{text}</div>;
     }
 
     return <div>{input}</div>

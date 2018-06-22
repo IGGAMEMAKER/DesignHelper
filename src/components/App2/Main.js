@@ -5,37 +5,35 @@ import s from './styles.scss';
 import EditableLabel from './UI/EditableLabel';
 import Toggle from './UI/Toggle';
 
+import {
+  getData,
+  saveData
+} from '../../helpers/getData';
+
 const defaultItem = {
   name: 'default',
   description: 'default'
 };
 
 class Main extends Component {
-  state = {
-    levels: [
-      [
-        {
-          name: 'atmosphere',
-          description: 'art, music, sounds'
-        }
-      ],
-      [
-        {
-          name: 'positioning',
-          description: 'describe app in 6 words'
-        }
-      ]
-    ],
-    levelNames: [
-      'question1',
-      'question2'
-    ],
+  constructor (props) {
+    super(props);
+    // this.state = JSON.parse(localStorage.getItem('data'));
+    this.state = getData();
+  }
 
-    showDescriptions: true
+  update = obj => {
+    this.setState(obj);
+
+    saveData(this.state);
   };
 
+  componentDidMount() {
+    this.setState(JSON.parse(localStorage.getItem('data')));
+  }
+
   toggleDescriptions = () => {
-    this.setState({
+    this.update({
       showDescriptions: !this.state.showDescriptions
     })
   };
@@ -47,7 +45,7 @@ class Main extends Component {
     const levels = this.state.levels;
     levels.push([defaultItem]);
 
-    this.setState({
+    this.update({
       levels,
       levelNames
     })
@@ -58,7 +56,15 @@ class Main extends Component {
 
     levels[level].push(defaultItem);
 
-    this.setState({ levels });
+    this.update({ levels });
+  };
+
+  onRemoveItem = (level, i) => {
+    const levels = this.state.levels;
+
+    levels[level].splice(i, 1);
+
+    this.update({ levels });
   };
 
   renderItem = level => (l, i) => {
@@ -74,8 +80,8 @@ class Main extends Component {
     }
 
     return (
-      <div className={s.levelItemWrapper}>
-        <div className={s.levelItem}>
+      <div className={s.levelItem} onContextMenu={() => this.onRemoveItem(level, i)}>
+        <div className={s.levelItemWrapper}>
           {title}
           {description}
         </div>
@@ -87,7 +93,7 @@ class Main extends Component {
     const levelNames = this.state.levelNames;
     levelNames[level] = text;
 
-    this.setState({
+    this.update({
       levelNames
     });
   };
@@ -96,7 +102,7 @@ class Main extends Component {
     const levels = this.state.levels;
     levels[level][i].description = text;
 
-    this.setState({
+    this.update({
       levels
     });
   };
@@ -105,7 +111,7 @@ class Main extends Component {
     const levels = this.state.levels;
     levels[level][i].name = text;
 
-    this.setState({
+    this.update({
       levels
     });
   };
@@ -116,15 +122,13 @@ class Main extends Component {
 
     const levelName = this.state.levelNames[index];
 
-    return <div>
-      <div className={s.level}>
-        <div className={s.levelItem}>
-          <EditableLabel text={levelName} onChange={this.onQuestionChange(level)} />
-        </div>
-        {items}
-        <div className={s.levelItem}>
-          <Toggle text="+" onClick={() => this.addToLevel(index)} />
-        </div>
+    return <div className={s.level}>
+      <div className={s.levelItem}>
+        <EditableLabel text={levelName} onChange={this.onQuestionChange(level)} />
+      </div>
+      {items}
+      <div className={s.levelItem}>
+        <Toggle text="+" onClick={() => this.addToLevel(index)} />
       </div>
     </div>
   };
@@ -133,16 +137,15 @@ class Main extends Component {
     const levels = this.state.levels.map(this.renderLevel);
 
     return <div>
-      <h2 className={s.mainTitle}>PATH TO GREAT GAME STARTS HERE...</h2>
-      <div>
-        <Toggle text="D" onClick={this.toggleDescriptions} />
-      </div>
+      <h2 className={s.mainTitle}>ROAD TO GREAT GAME STARTS HERE...</h2>
+      <Toggle text="D" onClick={this.toggleDescriptions} />
       {levels}
-      <div>
-        <div className={s.level}>
-          <div className={s.levelItem}>
-            <Toggle text="+" onClick={() => this.addLevel(`question${levels.length}`)} />
-          </div>
+      <div className={s.level}>
+        <div className={s.levelItem}>
+          <Toggle
+            text="+"
+            onClick={() => this.addLevel(`question${levels.length}`)}
+          />
         </div>
       </div>
     </div>;
