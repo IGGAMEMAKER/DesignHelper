@@ -40,6 +40,18 @@
   font-size: small;
 }
 
+.loadingElement {
+  text-align: center;
+  color: white;
+}
+
+.exportDocument {
+  text-align: center;
+  margin: auto;
+  width: calc(100% - 100px);
+  min-height: 200px;
+}
+
 .circleButton {
   border-radius: 50%;
   padding: 10px;

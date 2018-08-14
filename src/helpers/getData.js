@@ -21,7 +21,7 @@ const defaults = {
     'Sales'
   ],
 
-  showDescriptions: true
+  showDescriptions: true,
 };
 
 const emptyDefaults = {
@@ -51,3 +51,6 @@ export const saveData = (data) => {
   console.log('read from storage', read);
 };
 
+export const restoreDefaults = () => {
+  localStorage.setItem('data', JSON.stringify(emptyDefaults));
+};

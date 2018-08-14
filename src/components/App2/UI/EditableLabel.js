@@ -24,7 +24,6 @@ class EditableLabel extends Component {
   };
 
   componentWillMount() {
-    console.log('will mount', this.props.text);
     this.setState({
       text: this.props.text
     });
